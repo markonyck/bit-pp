@@ -253,3 +253,35 @@ for (var i = 0; i < arr1.length; i++) {
 }
 
 console.log (outputArr);
+
+var e = 2;
+var a = [4, 6, 2, 8, 2, 2];
+var b = [];
+
+for (var i = 0; i < a.length; i++){
+    if (e !== a[i]){
+        b[b.length] = a[i];
+    }
+}
+console.log(b);
+
+var e = 78;
+var p = 2;
+var a = [2, -2, 33, 12, 5, 8];
+var b = [];
+if (p > a.length){
+    console.log('Error!');
+} else {
+    for (var i = 0; i < a.length; i++) {
+        if (i+1 <= p) {
+            b[i] = a[i];
+        } else {
+            b[b.length] = e; 
+            break; 
+        }
+    }
+    for (var j=p; j<a.length; j++){
+        b[b.length] = a[j];
+    }
+    console.log(b);
+}
