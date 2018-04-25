@@ -243,13 +243,9 @@ if (isSymetric) {
 var arr1 = [4, 5, 6, 2];
 var arr2 = [3, 8, 11, 9];
 var outputArr = [];
-var m = 0;
-var k = 1;
 for (var i = 0; i < arr1.length; i++) {
-    for (var j = 0; j < arr2.length; j++) {
-        outputArr [k] = arr2 [j]
-    }
-    outputArr [m] = arr1 [i]; 
+    outputArr[outputArr.length] = arr1[i];
+    outputArr[outputArr.length] = arr2[i];
 }
 
 console.log (outputArr);
