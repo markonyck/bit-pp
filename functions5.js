@@ -204,3 +204,54 @@ console.log(combinationTwoNumbers(7));
 
 // zadatak 10
 
+function isPrimeNumber(num) {
+    for (var i = 2; i < num; i++) {
+        if (num % i === 0) {
+            return false;
+        } 
+    }
+    return true;
+}
+console.log(isPrimeNumber(17));
+
+
+// zadatak 11
+
+function isStringPalindrom(string){
+    newString = "";
+    for (var i = 0; i < string.length; i++){
+        if (string[i] !== " ") {
+            newString += string[i];
+        }
+    }
+    var m = parseInt((newString.length) / 2);
+    for (var j = 0; j < m; j++) {
+        if (newString[j] !== newString[newString.length-1-j]){
+            return false;
+        }
+    }
+    return true;
+}
+console.log(isStringPalindrom("a nut for a jar of tuna"));
+
+function greatestCommonDivisorOfTwoIntegers(num1, num2){
+    nzdArr = [];
+    if (num1 > num2){
+        for (var i = 1; i <= num2; i++){
+            if (num1 % i === 0 && num2 % i === 0) {
+                nzdArr[nzdArr.length] = i;
+            }
+        }
+        var nzd = nzdArr[nzdArr.length-1];
+        return nzd;
+    } else{
+        for (var i = 1; i <= num1; i++){
+            if (num1 % i === 0 && num2 % i === 0) {
+                nzdArr[nzdArr.length] = i;
+            }
+        }
+        var nzd = nzdArr[nzdArr.length-1];
+        return nzd;
+    }
+}
+console.log(greatestCommonDivisorOfTwoIntegers(9, 45));

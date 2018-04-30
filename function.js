@@ -107,11 +107,26 @@
 
 // task 11
 
-function Concatenates(str, num){
-    var output = [];
-    for(var i = 1; i <= num; i++){
-        output += str;
+//function Concatenates(str, num){
+//    var output = [];
+  //  for(var i = 1; i <= num; i++){
+    //    output += str;
+   // }
+   // return output;
+// }
+// console.log(Concatenates('marko', 3));
+
+function drawChart (a, b, c) {
+    var i = 1
+    while (i <= a ) {
+        console.log('*');
+        i++;
     }
-    return output;
+    for (var i = 1; i <= b; i++){
+        console.log('*');
+    }
+    for (var i = 1; i <= c; i++){
+        console.log('*')
+    }
 }
-console.log(Concatenates('marko', 3));
+drawChart(5, 3, 7);
