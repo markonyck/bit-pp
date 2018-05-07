@@ -3,7 +3,7 @@ var jelena = {
     age: 21,
     job: "archaeologyst",
     interests: ["read", "design", "shopping"],
-    handMade: function (){
+    handMade: function () {
         console.log(jelena.name + " likes to make jewelery.")
     },
     havefun: function () {
@@ -24,13 +24,13 @@ console.log(jelena);
 var person = {
     name: "Marko",
     age: 48,
-    job:"engineer",
+    job: "engineer",
     interests: ['sports', 'movies', 'cars'],
-    run: function (){
-      console.log(person.name + ' occasionaly running!')
+    run: function () {
+        console.log(person.name + ' occasionaly running!')
     },
-    haveFun: function (){
-        console.log(person.name+ ' have fun: ' + person.interests)
+    haveFun: function () {
+        console.log(person.name + ' have fun: ' + person.interests)
     }
 }
 
@@ -78,7 +78,7 @@ console.log(movie);
 
 // zadatak 3
 
-function makeProgram (description, programmingLanguage, gitRepository, bool){
+function makeProgram(description, programmingLanguage, gitRepository, bool) {
     var program = {};
     program.description = description;
     program.programmingLanguage = programmingLanguage;
@@ -89,7 +89,7 @@ function makeProgram (description, programmingLanguage, gitRepository, bool){
         console.log(program.gitRepository);
     };
 
-    program.isJS = function (programmingLanguage){
+    program.isJS = function (programmingLanguage) {
         if (program.programmingLanguage === "JS") {
             console.log(true);
         } else {
@@ -100,7 +100,7 @@ function makeProgram (description, programmingLanguage, gitRepository, bool){
     program.isCompletted = function (bool) {
         if (program.boolean) {
             console.log(true);
-        } else { 
+        } else {
             console.log(false);
         }
     };
@@ -114,3 +114,35 @@ var phpProgram = makeProgram("frontend", "PHP", "markonyck", true);
 jsProgram.printRepository();
 
 //zadatak 4
+
+function createCulinaryRecipe(name, typeOfCuisine, complexity, ingredients, preparTime, preparingInstruction) {
+    var culinaryRecipe = {
+        mealName: name,
+        mealType: typeOfCuisine,
+        mealComplexity: complexity,
+        listOfIngredients: ingredients,
+        preparingTime: preparTime,
+        preparingInstruction: preparingInstruction,
+
+        ingredientsOfMeal: function () {
+            console.log(culinaryRecipe.listOfIngredients);
+        },
+
+        checkIsQuicker: function () {
+            return culinaryRecipe.preparingTime < 15;
+        },
+
+        changeType: function (newType) {
+          return culinaryRecipe.typeOfCuisine = newType;
+        },
+
+      
+    }
+
+}
+var newCulinaryRecipe = createCulinaryRecipe("pizza", "italijanska", 4, ["pasta", "tomato", "ham", "mashrumes", "origano"], 10, "blabla");
+
+console.log(newCulinaryRecipe);
+console.log(newCulinaryRecipe.checkIsQuicker());
+console.log(newCulinaryRecipe.ingredientsOfMeal());
+console.log(newCulinaryRecipe.changeType("mediteran"));
