@@ -138,7 +138,7 @@ function createCulinaryRecipe(name, typeOfCuisine, complexity, ingredients, prep
 
       
     }
-
+    return newCulinaryRecipe
 }
 var newCulinaryRecipe = createCulinaryRecipe("pizza", "italijanska", 4, ["pasta", "tomato", "ham", "mashrumes", "origano"], 10, "blabla");
 
