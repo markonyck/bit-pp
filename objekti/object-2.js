@@ -1,6 +1,6 @@
 // primer
 
-function Animal (kind, name) {
+function Animal(kind, name) {
     this.kind = kind;
     this.name = name;
 }
@@ -11,7 +11,7 @@ console.log(cat);
 
 // zadatak
 
-function Person (name, surname, hobby){
+function Person(name, surname, hobby) {
     this.name = name;
     this.surname = surname;
     this.hobi = hobby;
@@ -19,17 +19,17 @@ function Person (name, surname, hobby){
     this.sayName = function () {
         console.log("Hi I'm " + this.name + "!");
     }
-    this.sayBla = function(){
+    this.sayBla = function () {
         console.log(this.name + ": bla");
     }
-    this.likeIt = function(){
-        for (var i = 0; i < this.hobi.length; i++){
+    this.likeIt = function () {
+        for (var i = 0; i < this.hobi.length; i++) {
             console.log(this.name + ' likes ' + this.hobi[i]);
         }
     }
-    this.changeSurname = function(newSurname) {
-       this.surname = newSurname;
-        
+    this.changeSurname = function (newSurname) {
+        this.surname = newSurname;
+
     }
 }
 
@@ -55,7 +55,7 @@ function convertNumber (input, base) {
 console.log(convertNumber('ff', 8));
 */
 
-function convertNumberBase (inputStr, inputBase, outputBase){
+function convertNumberBase(inputStr, inputBase, outputBase) {
 
     var number = parseInt(inputStr, inputBase);
     var convertedNumber = number.toString(outputBase);
@@ -71,19 +71,19 @@ console.log(convertNumberBase("377", 8, 16));
 function reverseNumber(input) {
     var reversed = input.toString().split("").reverse().join("");
     reversed = parseInt(reversed);
-    
- 
+
+
 
     return reversed;
 }
 console.log(reverseNumber(123));
-console.log(typeof(reverseNumber(123)));
+console.log(typeof (reverseNumber(123)));
 
 // zadatak 3 Write a JavaScript function that returns a passed string with letters in alphabetical order. 
 // Note: Assume punctuation, numbers and symbols are not included in the passed string.
 
 
-function sortString (input){
+function sortString(input) {
 
     var result = input.toLowerCase().split("").sort().join("");
 
@@ -94,18 +94,18 @@ console.log(sortString("Webmaster"));
 
 
 // zadatak 4 Write a function to alphabetize words of a given string. Alphabetizing a string means rearranging the letters so they are sorted from A to Z.
-	
+
 //	"Republic Of Serbia" -> "Rbceilpu Of Sabeir"
 
 
-function alphabetization (inputStr) {
+function alphabetization(inputStr) {
 
     var output = inputStr.split(" ");
-        for (var i = 0; i < output.length; i++) {
-           output[i] = output[i].split("").sort().join("");
-          }  
-        
-        output = output.join(" ");
+    for (var i = 0; i < output.length; i++) {
+        output[i] = output[i].split("").sort().join("");
+    }
+
+    output = output.join(" ");
     return output;
 }
 
@@ -116,7 +116,7 @@ console.log(alphabetization("Republic Of Serbia"));
 
 //	"John Snow" -> [ 'John', 'Snow' ]
 
-function splitString (input){
+function splitString(input) {
 
     var output = input.split(" ");
 
@@ -130,10 +130,72 @@ console.log(splitString("John Snow"));
 
 //	"John Snow" -> 	"John S."
 
-function abbreviated (input){
+function abbreviated(input) {
 
     var output = input.split(" ");
-    output 
-
-    return
+    var output1 = output[0];
+    var output2 = output[1].slice(0, 1);
+    output = output1 + " " + output2 + ".";
+    return output;
 }
+
+console.log(abbreviated("John Snow"));
+
+// zadatak 7 Write a function that can pad (left, right) a string to get to a determined length.
+// '0000', 123, 'l' -> 0123 
+// '00000000', 123, 'r' -> 12300000
+
+function padding(padLength, num, direction) {
+    var output = '';
+    num = num + '';
+    if (direction === 'l') {
+        output = (padLength + num).slice(num.length)
+    } else {
+        if (direction === 'r') {
+            output = (num + padLength).slice(0, -num.length);
+        }
+    }
+    return output;
+}
+console.log(padding('00000000', 123, 'r'));
+
+// zadatak 8 Write a function to capitalize the first letter of a string and returns modified string.
+
+// "js string exercises" -> "Js string exercises"
+
+function capitalizeFirstLetter(string) {
+    var modified = string.charAt(0).toUpperCase() + string.slice(1);
+    return modified;
+}
+console.log(capitalizeFirstLetter("js string exercises"))
+
+// zadatak 9 Write a function to hide email addresses to protect them from unauthorized users.
+// "somerandomaddress@example.com" -> "somerand...@example.com"
+
+function hideEmail(email) {
+    var monkey = email.lastIndexOf('@');
+    var output = email.slice(0, 5) + '...' + email.slice(monkey);
+    return output;
+}
+console.log(hideEmail("somerandomaddress@example.com"))
+
+// zadatak 10 Write a program that accepts a string as input and swaps the case of each character. For example, if you input 'The Quick Brown Fox', the output should be 'tHE qUICK bROWN fOX'.
+function changeCase(string) {
+    var UPPER = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    var LOWER = 'abcdefghijklmnopqrstuvwxyz';
+    var newString = [];
+    for (var i = 0; i < string.length; i++) {
+        if (UPPER.includes(string[i])) {
+            newString.push(string[i].toLowerCase());
+        } else if (LOWER.includes(string[i])) {
+            newString.push(string[i].toUpperCase());
+        } else {
+            newString.push(string[i]);
+        }
+    }
+    return newString.join('');
+}
+console.log(changeCase("The Quick Brown Fox"));
+
+
+"The Quick Brown Fox" -> "tHE qUICK bROWN fOX"
