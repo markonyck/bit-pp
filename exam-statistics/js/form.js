@@ -37,3 +37,21 @@ function isNameValid(student) {
         return;
     }
 }
+
+function updateList(studentList){
+    var passedList = document.querySelector("#passed-student-list");
+    var failedList = document.querySelector("#failed-student-list");
+    var liStudent = document.createElement("li");
+    
+    examList.forEach(function (exam) {
+        if (createdExam.grade > 5) {
+            liStudent.textContent = createdExam.getStudentData() + " " + createdExam.grade;
+            passedList.appendChild(liStudent);
+            
+        } else {
+            liStudent.textContent = createdExam.getStudentData() + " " + createdExam.grade;
+            failedList.appendChild(liStudent);
+        }
+    })
+    
+}
