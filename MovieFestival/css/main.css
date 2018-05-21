@@ -1,0 +1,31 @@
+.container {
+    display: block;
+    margin: 0 auto;
+    width: 70%;
+    box-sizing: border-box;
+}
+
+h1 {
+    text-align: center;
+}
+
+input, select {
+    box-sizing: border-box;
+    display: block;
+    width: 100%;
+    margin: 10px auto;
+    height: 30px;
+    border-radius: 3px;
+    box-shadow: none;
+    padding-left: 15px;
+}
+
+input[type="button"] {
+    background: rgb(61, 163, 61);
+    color: #fff;
+    height: 40px;
+}
+
+.invalidInput {
+    border: 1px solid red;
+}
