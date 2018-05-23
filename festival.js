@@ -6,10 +6,10 @@
     function Genre(name) {
         this.name = name;
         this.getData = function () {
-            var firstLetter = this.name[0].toUpperCase();
-            var lastLetter = this.name[name.length - 1].toUpperCase();
-            var genreCode = firstLetter + lastLetter;
-            return genreCode + "";
+            const firstLetter = this.name[0].toUpperCase();
+            const lastLetter = this.name[name.length - 1].toUpperCase();
+            const genreCode = `${firstLetter}${lastLetter}`;
+            return genreCode;
 
         };
 
@@ -17,13 +17,13 @@
 
     function Movie(title, genre, length) {
         if (!(genre instanceof Genre)) {
-            console.log("genre is not instance of Genre");
+            console.log(`genre is not instance of ${Genre}`);
         }
         this.title = title;
         this.genre = genre;
         this.length = length;
         this.getData = function () {
-            return this.title + ": " + this.length + ", " + genre.getData();
+            return `${this.title}: ${this.length}, ${genre.getData()}`;
         }
     }
 
@@ -38,7 +38,7 @@
         }
 
         this.lengthAllMovies = function () {
-            var lengthAllMovies = 0;
+            let lengthAllMovies = 0;
             this.listOfMovies.forEach(function (movie) {
                 lengthAllMovies += parseFloat(movie.length);
             });
@@ -46,16 +46,16 @@
         }
 
         this.moviesData = function () {
-            var movieData = [];
+            let movieData = "";
             this.listOfMovies.forEach(function (movie) {
-                movieData += movie.getData();
+                movieData += `\t${movie.getData()}\n`;
 
             });
             return movieData;
         }
 
         this.getData = function () {
-            return this.date + " program duration " + this.lengthAllMovies() + "\n \t" + this.moviesData() + " n";
+            return `${this.date} program duration: ${this.lengthAllMovies()} \n ${this.moviesData()}`;
         }
     }
 
@@ -69,7 +69,7 @@
         }
 
         this.festivalData = function () {
-            var festivalData = [];
+            let festivalData = '';
             this.listOfPrograms.forEach(function(program) {
                 festivalData += program.getData();
             });
@@ -77,12 +77,12 @@
         }
 
         this.getData = function () {
-            return this.name + " has " + this.numOfAllMovies + " movies titles \n" + this.festivalData();
+            return `${this.name} has ${this.numOfAllMovies} programs: \n ${this.festivalData()}`;
         }
     }
 
     function createMovie (nameStr, genreStr, length){
-        var genre = new Genre(genreStr)
+        const genre = new Genre(genreStr)
         return new Movie(nameStr, genre, length);
     };
 
@@ -95,33 +95,38 @@
     // var action = new Genre("action");
     // var drama = new Genre("drama");
     // var kids = new Genre("kids");
-    // var sf = new Genre("scien fiction");
+    // var sf = new Genre("science fiction");
 
     //var revenant = new Movie("Revenent", drama, "200min");
-    var revenant = createMovie("Revenent", "drama", "200min");
-    //var frozen = new Movie("Frozen", kids, '100min');
-    console.log(revenant);
-    //var oscarMovies = new Program('06 22 2018');
-    //oscarMovies.addMovie(revenant);
-    // console.log(oscarMovies.getData());
+    const revenant = createMovie("Revenent", "drama", "200min");
+    const frozen = createMovie("Frozen", "kids", '100min');
+    // console.log(revenant);
+    // console.log(revenant.getData());
+
+    // console.log(frozen);
+    // console.log(frozen.getData());
+    const oscarMovies = new Program('06 22 2018');
+    oscarMovies.addMovie(revenant);
+    oscarMovies.addMovie(frozen);
+    console.log(oscarMovies.getData());
     
 
-    //var cartoons = new Program("06 23 2018");
-    //cartoons.addMovie(frozen);
+    const cartoons = new Program("06 23 2018");
+    cartoons.addMovie(frozen);
 
     // var sf = createProgram("06 24 2018");
     // console.log(sf);
 
     // console.log(cartoons.getData());
 
-    var summerFest = new Festival('summerFest');
+    const summerFest = new Festival('summerFest');
     summerFest.addProgram(oscarMovies);
     summerFest.addProgram(cartoons);
-    //console.log(summerFest.getData());
+    console.log(summerFest.getData());
 
-    var starWars = new Movie("Star Wars", action, "180");
-    var covenant = new Movie("Star Wars", action, "180");
-    var newProgram = new createProgram("08 18 2018");
+    // var starWars = new Movie("Star Wars", action, "180");
+    // var covenant = new Movie("Star Wars", action, "180");
+    // var newProgram = new createProgram("08 18 2018");
     //console.log(newMovie);
     //console.log(newProgram);
 
