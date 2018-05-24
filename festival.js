@@ -3,11 +3,14 @@
     console.log('Hi');
 
     // create constractor functions
-    function Genre(name) {
-        this.name = name;
-        this.getData = function () {
+    class Genre {
+        constructor(name) {
+            this.name = name;
+        }
+
+        getData() {
             const firstLetter = this.name[0].toUpperCase();
-            const lastLetter = this.name[name.length - 1].toUpperCase();
+            const lastLetter = this.name[this.name.length - 1].toUpperCase();
             const genreCode = `${firstLetter}${lastLetter}`;
             return genreCode;
 
@@ -15,29 +18,36 @@
 
     }
 
-    function Movie(title, genre, length) {
-        if (!(genre instanceof Genre)) {
-            console.log(`genre is not instance of ${Genre}`);
+    class Movie {
+        constructor(title, genre, length) {
+            this.title = title;
+            this.genre = genre;
+            this.length = length;
         }
-        this.title = title;
-        this.genre = genre;
-        this.length = length;
-        this.getData = function () {
-            return `${this.title}: ${this.length}, ${genre.getData()}`;
+   
+    
+        //if (!(genre instanceof Genre)) {
+        //console.log(`genre is not instance of ${Genre}`);
+        //}
+
+        getData () {
+            return `${this.title}: ${this.length}, ${this.genre.getData()}`;
         }
     }
 
-    function Program(date) {
-        this.date = new Date(date);
-        this.listOfMovies = [];
-        this.numOfMovies = this.listOfMovies.length;
+    class Program {
+        constructor (date){
+            this.date = new Date(date);
+            this.listOfMovies = [];
+            this.numOfMovies = this.listOfMovies.length;
+        }
 
-        this.addMovie = function (movie) {
+        addMovie (movie) {
             this.numOfMovies++;
             return this.listOfMovies.push(movie);
         }
 
-        this.lengthAllMovies = function () {
+        lengthAllMovies () {
             let lengthAllMovies = 0;
             this.listOfMovies.forEach(function (movie) {
                 lengthAllMovies += parseFloat(movie.length);
@@ -45,7 +55,7 @@
             return lengthAllMovies;
         }
 
-        this.moviesData = function () {
+        moviesData () {
             let movieData = "";
             this.listOfMovies.forEach(function (movie) {
                 movieData += `\t${movie.getData()}\n`;
@@ -54,41 +64,43 @@
             return movieData;
         }
 
-        this.getData = function () {
+        getData () {
             return `${this.date} program duration: ${this.lengthAllMovies()} \n ${this.moviesData()}`;
         }
     }
 
-    function Festival(name) {
-        this.name = name;
-        this.listOfPrograms = [];
-        this.numOfAllMovies = 0;
-        this.addProgram = function (program) {
+    class Festival {
+        constructor(name){
+            this.name = name;
+            this.listOfPrograms = [];
+            this.numOfAllMovies = 0;
+
+        }
+        addProgram (program) {
             this.numOfAllMovies++;
             return this.listOfPrograms.push(program);
         }
 
-        this.festivalData = function () {
+        festivalData() {
             let festivalData = '';
-            this.listOfPrograms.forEach(function(program) {
+            this.listOfPrograms.forEach(function (program) {
                 festivalData += program.getData();
             });
             return festivalData;
         }
 
-        this.getData = function () {
+        getData() {
             return `${this.name} has ${this.numOfAllMovies} programs: \n ${this.festivalData()}`;
         }
     }
 
-    function createMovie (nameStr, genreStr, length){
+    const createMovie = (nameStr, genreStr, length) => {
         const genre = new Genre(genreStr)
         return new Movie(nameStr, genre, length);
     };
 
-    function createProgram (date) {
-        return new Program(date);
-    };
+    const createProgram = date => new Program(date);
+    
 
 
 
@@ -109,7 +121,7 @@
     oscarMovies.addMovie(revenant);
     oscarMovies.addMovie(frozen);
     console.log(oscarMovies.getData());
-    
+
 
     const cartoons = new Program("06 23 2018");
     cartoons.addMovie(frozen);
