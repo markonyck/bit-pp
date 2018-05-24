@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="./CSS/main.css">
+</head>
+
+<body>
+    <h1>Movie Festival</h1>
+    <form>
+        <p>Please fill in the form</p>
+        <h3>Movie</h3>
+        <fieldset>
+            <label for="title">Title</label>
+            <input type="text" id="title" placeholder="Title" value="">
+            <label for="duration">Length (min)</label>
+            <input type="number" id="duration" placeholder="Length in min" value="">
+            <select name="genre" id="genre">
+                <option value="">-</option>
+                <option value="action">Action</option>
+                <option value="comedy">Comedy</option>
+                <option value="drama">Drama</option>
+            </select>
+
+            <input type="button" id="createMovie" value="Create movie">
+            <ul id="movie-list"></ul>
+
+        </fieldset>
+        <h3>Program</h3>
+        <label for="date">Date</label>
+        <input type="date" id="date" value="">
+        <input type="button" id="createProgram" value="Create program">
+        <ul id="program-list"></ul>
+        <hr>
+        <label for="movies">Movie</label>
+        <select name="movies" id="movies">
+            <option value="">-</option>
+        </select>
+
+        <label for="programs">Program</label>
+        <select name="programs" id="programs">
+                <option value="">-</option>
+        </select>
+        <input type="button" id="addMovie" value="Add movie to program">
+    </form>
+
+    <script src="./JS/movie_festival.js"></script>
+</body>
+
+</html>
