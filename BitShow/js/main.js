@@ -5,6 +5,17 @@ const dataModule = (function () {
             this.name = name;
             this.image = image;
             this.id = id;
+
+        }
+    }
+    class singleShow {
+        constructor(name, original, id, summary, seasons, cast) {
+            this.name = name;
+            this.original = original;
+            this.id = id;
+            this.summary = summary;
+            this.seasons = seasons;
+            this.cast = [];
         }
     }
 
@@ -34,15 +45,26 @@ const dataModule = (function () {
 
     const fetchSingleShow = function (id, doneHandler) {
         $.ajax({
-            url: "http://api.tvmaze.com/shows/" + id,
+            url: "http://api.tvmaze.com/shows/5?embed[]=seasons&embed[]=cast",
             method: "GET"
-        }).done(function(show) {
-            const myShow = new Show(show.name, show.image.orignal, );
+        }).done(function (show) {
+            let image = show.image.original;
+            console.log(show);
+            const myShow = new singleShow(show.name, image, show.id, show.summary, show._embedded.seasons);
+            let numOfSeasons = show._embedded.seasons.length;
+            let seasons = show._embedded.seasons;
+            for (let i = 0; i < numOfSeasons.length; i++){
+                seasons.push(show._embedded.seasons.i.premierDate, show._embedded.seasons.i.endDate)
+            }
+            console.log(seasons);
+            console.log(myShow);
+            doneHandler(myShow);
         })
     }
 
     return {
-        loadData
+        loadData,
+        fetchSingleShow
     }
 
 
@@ -61,9 +83,23 @@ const uiModule = (function () {
         $display.html(showListOnPage);
     }
 
+    const showSingleItem = function (showItem) {
+        const $mainTitle = $(".show-title");
+        let showTitle = showItem.name;
+        $mainTitle.html(`<h3>${showTitle}<h3>`);
+
+        const $detailImage = $(".show-image");
+        let showImageOnPage = showItem.original;
+        $detailImage.html(`<img src="${showImageOnPage}">`);
+
+        const $summary = $(".summary");
+        let summaryText = showItem.summary;
+        $summary.html(`${summaryText}`);
+    }
 
     return {
         showData,
+        showSingleItem
     }
 
 
@@ -77,7 +113,7 @@ const mainController = (function (data, ui) {
 
         $(document).on('click', ".show-card", function () {
             // get id
-            let idValue = $(".show-card").attr("id");
+            let idValue = $(this).data("id");
             // set to ls
             localStorage.setItem("id", "idValue");
             // redirect to single page 
@@ -85,8 +121,15 @@ const mainController = (function (data, ui) {
         });
     }
 
+    let id = localStorage.getItem("id");
+
+    console.log(id);
     function initSingleShow() {
         console.log('second page');
+        data.fetchSingleShow(id, function (showItem) {
+            ui.showSingleItem(showItem);
+
+        });
     }
 
     return {

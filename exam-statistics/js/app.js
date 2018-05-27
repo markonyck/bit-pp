@@ -29,16 +29,18 @@ function createStudent() {
 }
 
 function createExam() {
-    var exam = subjectElement.value;
+    var subject = subjectElement.value;
     var grade = gradeElement.value;
     var student = studentElement.value;
 
-    studentList.forEach(function (student) {
-        createdStudent = student;
-    });
-
-    var createdExam = new Exam(exam, student, grade);
+    var createdExam = new Exam(subject, student, grade);
     studentList.push(createdExam);
+    
+  //  studentList.forEach(function (student) {
+   //     createdStudent = student;
+   // });
+
+    
 
     if (createdExam.hasPassed()) {
         passedList.push(createdExam);
