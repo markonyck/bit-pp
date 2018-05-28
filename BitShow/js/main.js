@@ -15,7 +15,7 @@ const dataModule = (function () {
             this.original = original;
             this.summary = summary;
             this.seasons = seasons;
-            this.cast = [];
+            this.cast = cast;
         }
 
     }
@@ -56,22 +56,59 @@ const dataModule = (function () {
             method: "GET"
         }).done(function (show) {
             let image = show.image.original;
-            console.log(show);
-            const mySeason = new Season (show._embedded.seasons)
-            const myShow = new singleShow(show.name, image, show.id, show.summary);
-            
+            let id = show.id;
             let numOfSeasons = show._embedded.seasons.length;
             let seasons = show._embedded.seasons;
+            let cast = show._embedded.cast;
+            let castList =[];
+            for (let i = 0; i < 10; i++){
+                castList.push(cast[i].person.name);
+            }
+           
+            const reformatedSeasons = seasons.map(singleObj => {
+                const mySeason = new Season(singleObj.premiereDate, singleObj.endDate);
+                return mySeason;
+            })
 
-            console.log(seasons);
+            const myShow = new singleShow(show.name, image, id, show.summary, reformatedSeasons, castList);
+
             console.log(myShow);
             doneHandler(myShow);
+
         })
+
+        const searchShow = function(input, doneHandler){
+            $.ajax({
+                url:`http://api.tvmaze.com/search/shows?q=${input}`,
+                method: "GET"
+            }).done(function(searched){
+                shows = [];
+                if (searched.length <= 10){
+                    for (let i = 0; i < searched.length; i++){
+                        const searchedName = searched[i].show.name;
+                        const searchedId = searched[i].show.id;
+                        const searchedImg = "";
+                        let show = new Show(showId, showName, showImg);
+                        shows.push(show);
+                    } 
+                } else {
+                    for (let i = 0; i < 10; i++){
+                        const searchedName = searched[i].show.name;
+                        const searchedId = searched[i].show.id;
+                        const searchedImg = "";
+                        let searchedObj = new Show(showId, showName, showImg);
+                        shows.push(searchedObj);
+                    } 
+                }
+                doneHandler(shows);
+            })
+        }
     }
 
     return {
         loadData,
-        fetchSingleShow
+        fetchSingleShow,
+        // searchShow
     }
 
 
@@ -102,6 +139,30 @@ const uiModule = (function () {
         const $summary = $(".summary");
         let summaryText = showItem.summary;
         $summary.html(`${summaryText}`);
+
+        const $season = $(".season");
+        const $seasonTitle = $(".seasonTitle");
+        const showSeasonTitle = `Seasons (${showItem.seasons.length})`;
+        $seasonTitle.html(showSeasonTitle);
+        let showListOfSeasons = "";
+        for (let i = 0; i < showItem.seasons.length; i++) {
+            if (showItem.seasons[i].beginDate !== null) {
+                showListOfSeasons += (`
+                    <li>${showItem.seasons[i].beginDate} - ${showItem.seasons[i].endDate}</li>
+                `)
+            } else {
+                showListOfSeasons += `<li>TBA</li>`;
+            }
+        }
+        $season.html(showListOfSeasons);
+        const $cast = $(".cast");
+        let showCastOnPage = "";
+        for (let i = 0; i < showItem.cast.length; i++){
+            showCastOnPage += (`
+            <li>${showItem.cast[i]}</li>
+            `)
+        }
+        $cast.html(showCastOnPage);
     }
 
     return {
@@ -138,6 +199,13 @@ const mainController = (function (data, ui) {
 
         });
     }
+
+    // $("#search-field").on("keyup", function(event){
+    //     let input = this.value;
+    //     data.searchShow(input, function(str){
+    //        ui.dropdownDisplay(str);
+    //     });
+    // });
 
     return {
         initHomepage,
