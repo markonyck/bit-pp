@@ -8,14 +8,21 @@ const dataModule = (function () {
 
         }
     }
-    class singleShow {
+    class singleShow extends Show {
         constructor(name, original, id, summary, seasons, cast) {
-            this.name = name;
+            super(name, id)
+
             this.original = original;
-            this.id = id;
             this.summary = summary;
             this.seasons = seasons;
             this.cast = [];
+        }
+
+    }
+    class Season {
+        constructor(beginDate, endDate) {
+            this.beginDate = beginDate;
+            this.endDate = endDate;
         }
     }
 
@@ -45,17 +52,17 @@ const dataModule = (function () {
 
     const fetchSingleShow = function (id, doneHandler) {
         $.ajax({
-            url: "http://api.tvmaze.com/shows/5?embed[]=seasons&embed[]=cast",
+            url: `http://api.tvmaze.com/shows/${id}?embed[]=seasons&embed[]=cast`,
             method: "GET"
         }).done(function (show) {
             let image = show.image.original;
             console.log(show);
-            const myShow = new singleShow(show.name, image, show.id, show.summary, show._embedded.seasons);
+            const mySeason = new Season (show._embedded.seasons)
+            const myShow = new singleShow(show.name, image, show.id, show.summary);
+            
             let numOfSeasons = show._embedded.seasons.length;
             let seasons = show._embedded.seasons;
-            for (let i = 0; i < numOfSeasons.length; i++){
-                seasons.push(show._embedded.seasons.i.premierDate, show._embedded.seasons.i.endDate)
-            }
+
             console.log(seasons);
             console.log(myShow);
             doneHandler(myShow);
@@ -113,9 +120,9 @@ const mainController = (function (data, ui) {
 
         $(document).on('click', ".show-card", function () {
             // get id
-            let idValue = $(this).data("id");
+            let idValue = $(this).attr("data-id");
             // set to ls
-            localStorage.setItem("id", "idValue");
+            localStorage.setItem("id", idValue);
             // redirect to single page 
             location.href = "showInfoPage.html"
         });
