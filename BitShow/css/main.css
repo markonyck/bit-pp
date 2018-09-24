@@ -21,8 +21,13 @@
     width: 200px; }
 
 .show-image {
-  width: 80%;
+  width: 90%;
   padding-top: 20px; }
+
+.show-card p {
+  text-align: center; }
+.show-card img {
+  width: 100%; }
 
 .footer {
   background-color: black;

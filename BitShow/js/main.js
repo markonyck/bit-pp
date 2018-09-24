@@ -42,7 +42,7 @@ const dataModule = (function () {
                 const show = new Show(singleShowObj.name, singleShowObj.image.medium, singleShowObj.id);
                 return show
             })
-            console.log(reformedList50);
+            // console.log(reformedList50);
             doneHandler(reformedList50)
             //loadData je funkcija, koju je pozvao main controler. Ona preko ajaxa i druge logike daje rezultat reformedlist50.
             // Da bi smo podatke vratili mainu, potrebna nam je callback funkcija doneHandler, koja je preuzela podatke reformedlista50 i prosledio loadData.
@@ -60,11 +60,12 @@ const dataModule = (function () {
             let numOfSeasons = show._embedded.seasons.length;
             let seasons = show._embedded.seasons;
             let cast = show._embedded.cast;
-            let castList =[];
-            for (let i = 0; i < 10; i++){
-                castList.push(cast[i].person.name);
-            }
-           
+            let castList = [];
+            cast.forEach(({ person }) => {
+                castList.push(person.name);
+            });
+
+
             const reformatedSeasons = seasons.map(singleObj => {
                 const mySeason = new Season(singleObj.premiereDate, singleObj.endDate);
                 return mySeason;
@@ -72,33 +73,33 @@ const dataModule = (function () {
 
             const myShow = new singleShow(show.name, image, id, show.summary, reformatedSeasons, castList);
 
-            console.log(myShow);
+            // console.log(myShow);
             doneHandler(myShow);
 
         })
 
-        const searchShow = function(input, doneHandler){
+        const searchShow = function (input, doneHandler) {
             $.ajax({
-                url:`http://api.tvmaze.com/search/shows?q=${input}`,
+                url: `http://api.tvmaze.com/search/shows?q=${input}`,
                 method: "GET"
-            }).done(function(searched){
+            }).done(function (searched) {
                 shows = [];
-                if (searched.length <= 10){
-                    for (let i = 0; i < searched.length; i++){
+                if (searched.length <= 10) {
+                    for (let i = 0; i < searched.length; i++) {
                         const searchedName = searched[i].show.name;
                         const searchedId = searched[i].show.id;
                         const searchedImg = "";
                         let show = new Show(showId, showName, showImg);
                         shows.push(show);
-                    } 
+                    }
                 } else {
-                    for (let i = 0; i < 10; i++){
+                    for (let i = 0; i < 10; i++) {
                         const searchedName = searched[i].show.name;
                         const searchedId = searched[i].show.id;
                         const searchedImg = "";
                         let searchedObj = new Show(showId, showName, showImg);
                         shows.push(searchedObj);
-                    } 
+                    }
                 }
                 doneHandler(shows);
             })
@@ -120,7 +121,7 @@ const uiModule = (function () {
         const $display = $(".display");
         let showListOnPage = "";
         for (let i = 0; i < showList.length; i++) {
-            showListOnPage += (`<div class="show-card col-4" data-id='${showList[i].id}'>
+            showListOnPage += (`<div class="show-card col-sm-4" data-id='${showList[i].id}'>
                                 <img src='${showList[i].image}'><p>${showList[i].name}<p></div>`);
 
         }
@@ -157,7 +158,7 @@ const uiModule = (function () {
         $season.html(showListOfSeasons);
         const $cast = $(".cast");
         let showCastOnPage = "";
-        for (let i = 0; i < showItem.cast.length; i++){
+        for (let i = 0; i < showItem.cast.length; i++) {
             showCastOnPage += (`
             <li>${showItem.cast[i]}</li>
             `)
